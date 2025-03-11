@@ -14,20 +14,20 @@ Crear una aplicación Pokédex utilizando la [PokéAPI](https://pokeapi.co/), im
 
 ## Requisitos (para completar en 1 hora)
 
-### 1. Gestión de Estado Global
-- Implementar gestion del estado global de la aplicación
-- Mover la lógica de estados desde App.tsx al contexto
-
-### 2. Grid de Pokémon
+### 1. Grid de Pokémon
 - Mostrar un grid de tarjetas de Pokémon usando el componente `PokemonCard`
 - Cargar la lista de Pokémon desde la API (20 por página)
 - Implementar paginación básica (anterior/siguiente) (deseado pero no obligatiorio).
 
-### 3. Búsqueda y Filtrado
+### 2. Gestión de Estado Global
+- Implementar gestion del estado global de la aplicación
+- Mover la lógica de estados desde App.tsx al contexto
+
+### 3. Búsqueda y Filtrado (opcional)
 - Implementar búsqueda por nombre
 - Permitir filtrar para mostrar solo los Pokémon favoritos
 
-### 4. Sistema de Favoritos
+### 4. Sistema de Favoritos (opcional)
 - Implementar la funcionalidad para marcar/desmarcar Pokémon como favoritos
 - Mostrar estado de favorito en las tarjetas
 
