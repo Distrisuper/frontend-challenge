@@ -1,54 +1,37 @@
-# React + TypeScript + Vite
+# Challenge Frontend: Pokédex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Crear una aplicación Pokédex utilizando la [PokéAPI](https://pokeapi.co/), implementando un grid de Pokémons con búsqueda y filtrado.
 
-## Expanding the ESLint configuration
+## Archivos proporcionados
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `App.tsx`: Esqueleto básico de la aplicación con estados iniciales
+- `PokemonCard.tsx`: Componente reutilizable para mostrar información de un Pokémon
+- `types.ts`: Definiciones de tipos básicos para la aplicación
+- Archivos CSS con estilos base
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Requisitos (para completar en 1 hora)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. Gestión de Estado Global
+- Implementar gestion del estado global de la aplicación
+- Mover la lógica de estados desde App.tsx al contexto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Grid de Pokémon
+- Mostrar un grid de tarjetas de Pokémon usando el componente `PokemonCard`
+- Cargar la lista de Pokémon desde la API (20 por página)
+- Implementar paginación básica (anterior/siguiente) (deseado pero no obligatiorio).
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 3. Búsqueda y Filtrado
+- Implementar búsqueda por nombre
+- Permitir filtrar para mostrar solo los Pokémon favoritos
+
+### 4. Sistema de Favoritos
+- Implementar la funcionalidad para marcar/desmarcar Pokémon como favoritos
+- Mostrar estado de favorito en las tarjetas
+
+## API Endpoints
+
+- Lista de Pokémon: `https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`
+- Detalles de un Pokémon: `https://pokeapi.co/api/v2/pokemon/{id o nombre}`
