@@ -1,6 +1,5 @@
 import React from 'react';
 import './PokemonCard.css';
-import { Pokemon } from '../types';
 
 interface PokemonCardProps {
   name: string;
@@ -17,8 +16,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   onSelectPokemon,
   onToggleFavorite
 }) => {
-
-  const [pokemon, setPokemon] = React.useState<Pokemon | null>(null);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
