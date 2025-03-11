@@ -1,29 +1,29 @@
 import React from 'react';
 import './PokemonCard.css';
+import { Pokemon } from '../types';
 
 interface PokemonCardProps {
-  id: number;
   name: string;
-  imageUrl: string;
-  types: string[];
+  url: string;
   isFavorite?: boolean;
-  onSelectPokemon: (id: number) => void;
-  onToggleFavorite?: (id: number) => void;
+  onSelectPokemon: (name: string) => void;
+  onToggleFavorite?: (name: string) => void;
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({
-  id,
   name,
-  imageUrl,
-  types,
+  url,
   isFavorite = false,
   onSelectPokemon,
   onToggleFavorite
 }) => {
+
+  const [pokemon, setPokemon] = React.useState<Pokemon | null>(null);
+
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onToggleFavorite) {
-      onToggleFavorite(id);
+      onToggleFavorite(name);
     }
   };
 
@@ -34,7 +34,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       <div className="pokemon-card-header">
         <span className="pokemon-card-id">#{id}</span>
         {onToggleFavorite && (
-          <button 
+          <button
             className={`favorite-button ${isFavorite ? 'active' : ''}`}
             onClick={handleFavoriteClick}
             aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
@@ -43,14 +43,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           </button>
         )}
       </div>
-      
+
       <div className="pokemon-card-image">
         <img src={imageUrl} alt={name} loading="lazy" />
       </div>
-      
+
       <div className="pokemon-card-content">
         <h3 className="pokemon-card-name">{displayName}</h3>
-        
+
         <div className="pokemon-card-types">
           {types.map(type => (
             <span key={type} className={`type-badge ${type}`}>
