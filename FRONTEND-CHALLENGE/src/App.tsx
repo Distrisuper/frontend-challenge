@@ -1,60 +1,23 @@
 // src/App.tsx
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 // Importar el componente PokemonCard
 // import PokemonCard from './components/PokemonCard';
 
-// Definición de tipos
-interface Pokemon {
-  id: number;
-  name: string;
-  sprites: {
-    front_default: string;
-    other: {
-      'official-artwork': {
-        front_default: string;
-      }
-    }
-  };
-  types: Array<{
-    type: {
-      name: string;
-    }
-  }>;
-  abilities: Array<{
-    ability: {
-      name: string;
-    }
-    is_hidden: boolean;
-  }>;
-  stats: Array<{
-    base_stat: number;
-    stat: {
-      name: string;
-    }
-  }>;
-}
-
-interface PokemonListResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Array<{
-    name: string;
-    url: string;
-  }>;
-}
-
 function App() {
   // Estados base
-  const [pokemonList, setPokemonList] = useState<Array<{name: string, url: string}>>([]);
+  const [pokemonList, setPokemonList] = useState<Array<{ name: string, url: string }>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+
+  const fetchPokemonList = async (pageNum: number) => {
+  };
+
 
   return (
     <div className="pokemon-app">
@@ -84,7 +47,6 @@ function App() {
         <div className="pokemon-grid">
           {/* Ejemplo: <PokemonCard id={1} name="bulbasaur" ... /> */}
         </div>
-        
         {/* TODO: Implementar paginación */}
         <div className="pagination">
           <button disabled={page === 1}>
