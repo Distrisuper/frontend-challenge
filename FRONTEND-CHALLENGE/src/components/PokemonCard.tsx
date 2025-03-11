@@ -27,9 +27,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   const displayName = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
-    <div className="pokemon-card" onClick={() => onSelectPokemon(id)}>
+    <div className="pokemon-card" onClick={() => onSelectPokemon(name)}>
       <div className="pokemon-card-header">
-        <span className="pokemon-card-id">#{id}</span>
+        <span className="pokemon-card-id">#{name}</span>
         {onToggleFavorite && (
           <button
             className={`favorite-button ${isFavorite ? 'active' : ''}`}
