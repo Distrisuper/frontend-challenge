@@ -1,23 +1,41 @@
 // src/App.tsx
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import PokemonCard from "./components/PokemonCard";
 
 // Importar el componente PokemonCard
 // import PokemonCard from './components/PokemonCard';
 
 function App() {
   // Estados base
-  const [pokemonList, setPokemonList] = useState<Array<{ name: string, url: string }>>([]);
+  const [pokemonList, setPokemonList] = useState<Array<{ name: string; url: string }>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
 
   const fetchPokemonList = async (pageNum: number) => {
+    const offset = pageNum * 20;
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${20}&offset=${offset}`);
+    const data = await response.json();
+    setPokemonList(data.results);
   };
 
+  useEffect(() => {
+    fetchPokemonList(page);
+  }, [page]);
+
+  const handleSelectPokemon = (name: string) => {};
+
+  const handleNextPage = ()=> {
+    setPage((prev) => prev + 1)
+  }
+
+  const handlePrevPage = ()=>  {
+    setPage((prev) => prev - 1)
+  }
 
   return (
     <div className="pokemon-app">
@@ -45,21 +63,19 @@ function App() {
       <main className="content">
         {/* TODO: Implementar un grid de tarjetas de Pokémon usando el componente PokemonCard */}
         <div className="pokemon-grid">
-          {/* Ejemplo: <PokemonCard id={1} name="bulbasaur" ... /> */}
+          {pokemonList.map((pokemon, index) => (
+            <PokemonCard key={index} name={pokemon.name} url={pokemon.url} onSelectPokemon={handleSelectPokemon} />
+          ))}
         </div>
         {/* TODO: Implementar paginación */}
         <div className="pagination">
-          <button disabled={page === 1}>
-            Anterior
-          </button>
+          <button onClick={handlePrevPage} disabled={page === 1}>Anterior</button>
           <span>Página {page}</span>
-          <button>
-            Siguiente
-          </button>
+          <button onClick={handleNextPage}>Siguiente</button>
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
