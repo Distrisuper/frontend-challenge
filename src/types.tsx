@@ -1,3 +1,15 @@
+export interface IApiResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: IResultApiResponse[]
+}
+
+export interface IResultApiResponse {
+  name: string;
+  url: string;
+}
+
 export interface Pokemon {
   /** The identifier for this resource. */
   id: number;
