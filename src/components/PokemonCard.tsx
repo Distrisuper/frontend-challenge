@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PokemonCard.css';
 
 interface PokemonCardProps {
@@ -9,6 +9,9 @@ interface PokemonCardProps {
   onToggleFavorite?: (name: string) => void;
 }
 
+interface PokemonDetail {
+}
+
 const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
   url,
@@ -16,6 +19,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   onSelectPokemon,
   onToggleFavorite
 }) => {
+
+  const [pokemonDetail, setPokemonDetail] = React.useState<any>(null);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -25,6 +30,24 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   };
 
   const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+
+  const fetchPokemonDetails = async() => {
+    try {
+      const resp = await fetch(url);
+      const data = await resp.json();
+      const { sprites, types } = data;
+      setPokemonDetail({
+        imageUrl: sprites?.front_default || sprites?.back_default,
+        types 
+       });
+    } catch(e) {
+
+    }
+  }
+
+  useEffect(() => {
+    fetchPokemonDetails();
+  }, [])
 
   return (
     <div className="pokemon-card" onClick={() => onSelectPokemon(name)}>
@@ -42,16 +65,16 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       </div>
 
       <div className="pokemon-card-image">
-        <img src={imageUrl} alt={name} loading="lazy" />
+        <img src={pokemonDetail?.imageUrl} alt={name} loading="lazy" />
       </div>
 
       <div className="pokemon-card-content">
         <h3 className="pokemon-card-name">{displayName}</h3>
 
         <div className="pokemon-card-types">
-          {types.map(type => (
-            <span key={type} className={`type-badge ${type}`}>
-              {type}
+          {pokemonDetail?.types?.map?.((types, i):  => (
+            <span key={i} className={`type-badge ${types?.type?.name}`}>
+              {types?.type?.name}
             </span>
           ))}
         </div>

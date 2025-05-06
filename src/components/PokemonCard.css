@@ -1,113 +1,114 @@
 /* src/components/PokemonCard.css */
 .pokemon-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .pokemon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .pokemon-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px 0;
-  }
-  
-  .pokemon-card-id {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: bold;
-  }
-  
-  .favorite-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #ccc;
-    transition: color 0.2s;
-    padding: 0;
-    line-height: 1;
-  }
-  
-  .favorite-button:hover {
-    color: gold;
-  }
-  
-  .favorite-button.active {
-    color: gold;
-  }
-  
-  .pokemon-card-image {
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-    height: 150px;
-  }
-  
-  .pokemon-card-image img {
-    max-width: 120px;
-    max-height: 120px;
-    object-fit: contain;
-  }
-  
-  .pokemon-card-content {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .pokemon-card-name {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
-    text-align: center;
-  }
-  
-  .pokemon-card-types {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  
-  .type-badge {
-    padding: 4px 12px;
-    border-radius: 16px;
-    color: white;
-    font-size: 0.8rem;
-    text-transform: capitalize;
-  }
-  
-  /* Colores para los tipos de Pokémon */
-  .type-badge.normal { background-color: #A8A878; }
-  .type-badge.fire { background-color: #F08030; }
-  .type-badge.water { background-color: #6890F0; }
-  .type-badge.electric { background-color: #F8D030; }
-  .type-badge.grass { background-color: #78C850; }
-  .type-badge.ice { background-color: #98D8D8; }
-  .type-badge.fighting { background-color: #C03028; }
-  .type-badge.poison { background-color: #A040A0; }
-  .type-badge.ground { background-color: #E0C068; }
-  .type-badge.flying { background-color: #A890F0; }
-  .type-badge.psychic { background-color: #F85888; }
-  .type-badge.bug { background-color: #A8B820; }
-  .type-badge.rock { background-color: #B8A038; }
-  .type-badge.ghost { background-color: #705898; }
-  .type-badge.dragon { background-color: #7038F8; }
-  .type-badge.dark { background-color: #705848; }
-  .type-badge.steel { background-color: #B8B8D0; }
-  .type-badge.fairy { background-color: #EE99AC; }
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 25%;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px 0;
+}
+
+.pokemon-card-id {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: bold;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.favorite-button:hover {
+  color: gold;
+}
+
+.favorite-button.active {
+  color: gold;
+}
+
+.pokemon-card-image {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  height: 150px;
+}
+
+.pokemon-card-image img {
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: contain;
+}
+
+.pokemon-card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.pokemon-card-name {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.pokemon-card-types {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  color: white;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+/* Colores para los tipos de Pokémon */
+.type-badge.normal { background-color: #A8A878; }
+.type-badge.fire { background-color: #F08030; }
+.type-badge.water { background-color: #6890F0; }
+.type-badge.electric { background-color: #F8D030; }
+.type-badge.grass { background-color: #78C850; }
+.type-badge.ice { background-color: #98D8D8; }
+.type-badge.fighting { background-color: #C03028; }
+.type-badge.poison { background-color: #A040A0; }
+.type-badge.ground { background-color: #E0C068; }
+.type-badge.flying { background-color: #A890F0; }
+.type-badge.psychic { background-color: #F85888; }
+.type-badge.bug { background-color: #A8B820; }
+.type-badge.rock { background-color: #B8A038; }
+.type-badge.ghost { background-color: #705898; }
+.type-badge.dragon { background-color: #7038F8; }
+.type-badge.dark { background-color: #705848; }
+.type-badge.steel { background-color: #B8B8D0; }
+.type-badge.fairy { background-color: #EE99AC; }
