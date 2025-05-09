@@ -1,4 +1,4 @@
-/* src/components/PokemonCard.css */
+
 .pokemon-card {
     background-color: white;
     border-radius: 10px;
@@ -111,3 +111,4 @@
   .type-badge.dark { background-color: #705848; }
   .type-badge.steel { background-color: #B8B8D0; }
   .type-badge.fairy { background-color: #EE99AC; }
+
