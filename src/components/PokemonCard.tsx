@@ -1,5 +1,6 @@
-import React from 'react';
-import './PokemonCard.css';
+import React, { useEffect, useState } from "react";
+import "./PokemonCard.css";
+import { Pokemon } from "../types";
 
 interface PokemonCardProps {
   name: string;
@@ -14,9 +15,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   url,
   isFavorite = false,
   onSelectPokemon,
-  onToggleFavorite
+  onToggleFavorite,
 }) => {
-
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onToggleFavorite) {
@@ -24,7 +24,23 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     }
   };
 
+  const [pokemonItem, setPokemonItem] = useState<Pokemon>();
+
   const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+
+  const fetchPokemon = async () => {
+    try {
+      const result = await fetch(url);
+      const data = await result.json();
+      setPokemonItem(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
 
   return (
     <div className="pokemon-card" onClick={() => onSelectPokemon(name)}>
@@ -32,26 +48,37 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         <span className="pokemon-card-id">#{name}</span>
         {onToggleFavorite && (
           <button
-            className={`favorite-button ${isFavorite ? 'active' : ''}`}
+            className={`favorite-button ${isFavorite ? "active" : ""}`}
             onClick={handleFavoriteClick}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            aria-label={
+              isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
           >
-            {isFavorite ? '★' : '☆'}
+            {isFavorite ? "★" : "☆"}
           </button>
         )}
       </div>
 
-      <div className="pokemon-card-image">
-        <img src={imageUrl} alt={name} loading="lazy" />
-      </div>
+      {url && (
+        <div className="pokemon-card-image">
+          <img
+            src={pokemonItem?.sprites.back_default}
+            alt={name}
+            loading="lazy"
+          />
+        </div>
+      )}
 
       <div className="pokemon-card-content">
         <h3 className="pokemon-card-name">{displayName}</h3>
 
         <div className="pokemon-card-types">
-          {types.map(type => (
-            <span key={type} className={`type-badge ${type}`}>
-              {type}
+          {pokemonItem?.types.map((type) => (
+            <span
+              key={type.type.name}
+              className={`type-badge ${type.type.name}`}
+            >
+              {type.type.name}
             </span>
           ))}
         </div>
