@@ -1,9 +1,10 @@
 // src/App.tsx
 import { useEffect, useState } from 'react'
 import './App.css'
+import { NamedAPIResource } from './types';
 
 // Importar el componente PokemonCard
-// import PokemonCard from './components/PokemonCard';
+import PokemonCard from './components/PokemonCard';
 
 function App() {
   // Estados base
@@ -13,10 +14,31 @@ function App() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
 
-  const fetchPokemonList = async (pageNum: number) => {
-  };
+
+  const fetchData = (async (page: number) => {
+    try{
+      const result = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=' + page * 20);
+      if (!result.ok) return;
+      const data = await result.json();
+  
+      setPokemonList(data.results);
+    }catch(e:any){
+      setError(e.message);
+    }
+
+  });
+
+  useEffect((() => {
+    fetchData(page);
+  }), [])
+
+  const paginationHandler = ((page: number) => {
+
+    fetchData(page);
+    setPage((prev) => prev + 1);
+  })
 
 
   return (
@@ -45,15 +67,18 @@ function App() {
       <main className="content">
         {/* TODO: Implementar un grid de tarjetas de Pokémon usando el componente PokemonCard */}
         <div className="pokemon-grid">
+          {pokemonList.map((pokemon: NamedAPIResource) =>
+            <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} onSelectPokemon={() => { }} />
+          )}
           {/* Ejemplo: <PokemonCard id={1} name="bulbasaur" ... /> */}
         </div>
         {/* TODO: Implementar paginación */}
         <div className="pagination">
-          <button disabled={page === 1}>
+          <button disabled={page === 1} onClick={() => paginationHandler(page - 1)}>
             Anterior
           </button>
           <span>Página {page}</span>
-          <button>
+          <button onClick={() => paginationHandler(page + 1)}>
             Siguiente
           </button>
         </div>
