@@ -1,7 +1,6 @@
 // src/App.tsx
 import { useEffect, useState } from 'react'
 import './App.css'
-import PokemonCard from './components/PokemonCard';
 
 // Importar el componente PokemonCard
 // import PokemonCard from './components/PokemonCard';
@@ -18,26 +17,6 @@ function App() {
 
   const fetchPokemonList = async (pageNum: number) => {
   };
-
-  useEffect(() => {
-    const fetchApi = async () => {
-      const url = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0'
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setPokemonList(data.results);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Error fetching data');
-        setLoading(false);
-      }
-    }
-    fetchApi();
-  }, []);
-
-  if (error) return <div>Error: {error}</div>;
-  if (loading) return <div>Loading...</div>;
 
 
   return (
@@ -66,13 +45,7 @@ function App() {
       <main className="content">
         {/* TODO: Implementar un grid de tarjetas de Pokémon usando el componente PokemonCard */}
         <div className="pokemon-grid">
-          {pokemonList.map(poke => (
-            <PokemonCard
-              key={poke.name}
-              name={poke.name}
-              url={poke.url}
-            />
-          ))}
+          {/* Ejemplo: <PokemonCard id={1} name="bulbasaur" ... /> */}
         </div>
         {/* TODO: Implementar paginación */}
         <div className="pagination">
