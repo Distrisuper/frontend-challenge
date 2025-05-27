@@ -144,7 +144,7 @@ export interface PokemonListResponse {
   results: Array<PokemonListItem>;
 }
 
-interface PokemonListItem {
+export interface PokemonListItem {
   name: string;
   url: string;
 }

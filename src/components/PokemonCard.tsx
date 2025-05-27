@@ -1,5 +1,6 @@
-import React from 'react';
-import './PokemonCard.css';
+import React, { useEffect, useState } from "react";
+import "./PokemonCard.css";
+import { Pokemon } from "../types";
 
 interface PokemonCardProps {
   name: string;
@@ -14,8 +15,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   url,
   isFavorite = false,
   onSelectPokemon,
-  onToggleFavorite
+  onToggleFavorite,
 }) => {
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -26,17 +28,34 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 
   const displayName = name.charAt(0).toUpperCase() + name.slice(1);
 
+  const fetchPokemon = async () => {
+    const res = await fetch(url);
+
+    const response: Pokemon = await res.json();
+
+    setPokemon(response);
+  };
+
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
+
+  const imageUrl = pokemon?.sprites.back_default;
+  const types = pokemon?.types;
+
   return (
     <div className="pokemon-card" onClick={() => onSelectPokemon(name)}>
       <div className="pokemon-card-header">
         <span className="pokemon-card-id">#{name}</span>
         {onToggleFavorite && (
           <button
-            className={`favorite-button ${isFavorite ? 'active' : ''}`}
+            className={`favorite-button ${isFavorite ? "active" : ""}`}
             onClick={handleFavoriteClick}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            aria-label={
+              isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
           >
-            {isFavorite ? '★' : '☆'}
+            {isFavorite ? "★" : "☆"}
           </button>
         )}
       </div>
@@ -49,9 +68,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         <h3 className="pokemon-card-name">{displayName}</h3>
 
         <div className="pokemon-card-types">
-          {types.map(type => (
-            <span key={type} className={`type-badge ${type}`}>
-              {type}
+          {types?.map(({ type }) => (
+            <span key={type.name} className={`type-badge ${type.name}`}>
+              {type.name}
             </span>
           ))}
         </div>
